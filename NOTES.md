@@ -185,6 +185,49 @@ python epever-mqtt-gateway.py Sync2HA
 - Modbus Protokoll: Tracer-AN-Modbus-Protocol (PDF auf EPEVER Website)
 - PyModbus Doku: https://pymodbus.readthedocs.io/
 
+### GitHub Repository
+
+- **URL**: https://github.com/frankhassan/epever-solar-gateway
+- **Name**: epever-solar-gateway
+
+### WICHTIGE ERINNERUNGEN
+
+#### WiFi-Modul Verbindung
+- IP: 192.168.178.150
+- Port: 8899
+- Login: admin/admin
+- Das Modul ist manchmal instabil - bei "No route to host" warten
+
+#### MQTT Konfiguration
+- Server: 192.168.178.57:1883
+- User: tasmota
+- Pass: Tasmota01$
+- Device ID: epever_xtra3210
+
+#### Services starten
+```bash
+# Web Interface
+sudo systemctl start epever-web
+
+# MQTT Service
+sudo systemctl start epever-mqtt
+
+# Oder manuell
+/opt/epever-mqtt-gateway/venv/bin/python /opt/epever-mqtt-gateway/webapp.py &
+/opt/epever-mqtt-gateway/venv/bin/python /opt/epever-mqtt-gateway/mqtt_service.py --daemon &
+```
+
+#### Nach Änderungen
+1. Code ändern
+2. Testen
+3. `git add -A && git commit -m "Beschreibung"`
+4. `git push`
+
+#### Home Assistant
+- Sensors erscheinen automatisch unter "EPEVER XTRA-N 3210"
+- State Topic: `epever_xtra3210/state`
+- Discovery Prefix: `homeassistant`
+
 ---
 
-*Zuletzt aktualisiert: Februar 2026*
+*Zuletzt aktualisiert: 20. Februar 2026*
