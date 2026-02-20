@@ -227,6 +227,44 @@ sudo systemctl start epever-mqtt
 - Sensors erscheinen automatisch unter "EPEVER XTRA-N 3210"
 - State Topic: `epever_xtra3210/state`
 - Discovery Prefix: `homeassistant`
+- Entity Prefix: `sensor.epever_xtra_n_3210_*`
+
+#### Home Assistant Dashboard
+1. Dashboard öffnen → Bearbeiten
+2. Neue Karte → Manuell
+3. YAML aus `ha_dashboard_test.yaml` einfügen
+
+#### Alte Sensoren löschen
+Falls doppelte Sensoren existieren, alte Discovery Topics löschen:
+```bash
+mosquitto_pub -h 192.168.178.57 -u tasmota -P 'Tasmota01$' -t 'homeassistant/sensor/epever_xtra3210/<sensor>/config' -n -r
+```
+
+#### Cronjob entfernt
+Der alte Cronjob wurde entfernt (lief jede Minute):
+```
+* * * * * /opt/epever-mqtt-gateway/venv/bin/python3 /opt/epever-mqtt-gateway/epever-mqtt-gateway.py Sync2HA
+```
+
+#### Web Interface
+- URL: http://192.168.178.89/epever/
+- Port 5050 (Flask) via Apache Proxy
+- Zeigt alle Daten in Echtzeit an
+
+### Problemlösungen
+
+#### WiFi-Modul instabil
+- Ursache: Zu viele gleichzeitige Verbindungen
+- Lösung: Cronjob entfernt, nur noch 1 Service
+
+#### Webseite zeigt "offline"
+- EPEVER WiFi-Modul kurz öffnen (192.168.178.150)
+- Dann Verbindung wiederhergestellt
+
+#### MQTT Daten nicht in HA
+- Service prüfen: `systemctl status epever-mqtt`
+- Logs: `journalctl -u epever-mqtt -f`
+- Manuelles Senden: `python mqtt_service.py --once`
 
 ---
 

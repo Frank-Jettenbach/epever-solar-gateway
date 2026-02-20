@@ -223,6 +223,23 @@ Das Web Interface stellt folgende REST-APIs bereit:
 | `GET /api/battery-types` | Verfügbare Batterietypen |
 | `GET /api/load-modes` | Verfügbare Last-Modi |
 
+## Home Assistant Dashboard
+
+Das Dashboard YAML liegt in `ha_dashboard_test.yaml` und enthält:
+- Batterie SOC Gauge
+- PV Leistung Gauge  
+- Last Gauge
+- PV Solar Werte
+- Batterie Werte
+- Last Werte
+- Statistik Heute/Gesamt
+- Temperaturen
+
+**Installation:**
+1. HA → Dashboard → Bearbeiten
+2. Neue Karte → Manuell
+3. YAML aus `ha_dashboard_test.yaml` einfügen
+
 ## Entwicklungshinweise
 
 ### Modbus-Datenformat
