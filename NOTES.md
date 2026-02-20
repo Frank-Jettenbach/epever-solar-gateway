@@ -187,7 +187,7 @@ python epever-mqtt-gateway.py Sync2HA
 
 ### GitHub Repository
 
-- **URL**: https://github.com/frankhassan/epever-solar-gateway
+- **URL**: https://github.com/Frank-Jettenbach/epever-solar-gateway
 - **Name**: epever-solar-gateway
 
 ### WICHTIGE ERINNERUNGEN
