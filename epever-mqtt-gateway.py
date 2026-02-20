@@ -1,9 +1,13 @@
+Dont run anymore
+
 import sys
 import time
 import json
 from datetime import datetime
 from pymodbus.client import ModbusTcpClient
 import paho.mqtt.client as mqtt
+
+
 
 # --- KONFIGURATION ---
 EPEVER_HOST = '192.168.178.150'

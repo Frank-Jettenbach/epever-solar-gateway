@@ -63,6 +63,7 @@ SENSOR_DEFINITIONS = [
     ("generation_total", "Erzeugung gesamt", "kWh", "energy", "total_increasing"),
     ("bat_capacity", "Batteriekapazität", "Ah", None, None),
     ("bat_type", "Batterietyp", None, None, None),
+    ("last_update", "Letzte Aktualisierung", None, "timestamp", None),
 ]
 
 running = True
@@ -104,17 +105,18 @@ def send_to_mqtt(data):
             **data["realtime"],
             **data["statistics"],
             **data["settings"],
-            "last_sync": data["last_update"]
+            "last_sync": data["last_update"],
+            "last_update": datetime.now().isoformat()
         }
         
         mq.publish(f"{DEVICE_ID}/state", json.dumps(payload))
         mq.disconnect()
         
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Daten an HA gesendet - SOC: {data['realtime'].get('bat_soc', 'N/A')}%")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Daten an HA gesendet - SOC: {data['realtime'].get('bat_soc', 'N/A')}%", flush=True)
         return True
         
     except Exception as e:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] MQTT Fehler: {e}")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] MQTT Fehler: {e}", flush=True)
         return False
 
 def run_once():

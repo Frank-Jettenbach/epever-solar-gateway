@@ -1,0 +1,102 @@
+type: vertical-stack
+cards:
+  - type: markdown
+    content: '## ☀️ EPEVER Solar Controller'
+  - type: entities
+    entities:
+      - entity: sensor.epever_xtra3210_last_update
+        name: Letzte Aktualisierung
+        format: relative
+    footer:
+      type: graph
+      entity: sensor.epever_xtra3210_pv_power
+      hours_to_show: 4
+      detail: 1
+  - type: grid
+    columns: 3
+    cards:
+      - type: gauge
+        entity: sensor.epever_xtra3210_bat_soc
+        name: Batterie
+        min: 0
+        max: 100
+        severity:
+          green: 60
+          yellow: 30
+          red: 0
+      - type: gauge
+        entity: sensor.epever_xtra3210_pv_power
+        name: PV Leistung
+        min: 0
+        max: 400
+        severity:
+          green: 100
+          yellow: 50
+          red: 0
+      - type: gauge
+        entity: sensor.epever_xtra3210_load_power
+        name: Last
+        min: 0
+        max: 100
+  - type: grid
+    columns: 2
+    cards:
+      - type: entities
+        title: PV Solar
+        entities:
+          - entity: sensor.epever_xtra3210_pv_voltage
+            name: Spannung
+          - entity: sensor.epever_xtra3210_pv_current
+            name: Strom
+          - entity: sensor.epever_xtra3210_pv_power
+            name: Leistung
+      - type: entities
+        title: Batterie
+        entities:
+          - entity: sensor.epever_xtra3210_bat_voltage
+            name: Spannung
+          - entity: sensor.epever_xtra3210_charge_current
+            name: Ladestrom
+          - entity: sensor.epever_xtra3210_charge_power
+            name: Ladeleistung
+          - entity: sensor.epever_xtra3210_bat_temp
+            name: Temperatur
+  - type: grid
+    columns: 2
+    cards:
+      - type: entities
+        title: Last
+        entities:
+          - entity: sensor.epever_xtra3210_load_voltage
+            name: Spannung
+          - entity: sensor.epever_xtra3210_load_current
+            name: Strom
+          - entity: sensor.epever_xtra3210_load_power
+            name: Leistung
+      - type: entities
+        title: Statistik Heute
+        entities:
+          - entity: sensor.epever_xtra3210_generation_today
+            name: Erzeugt
+          - entity: sensor.epever_xtra3210_consumption_today
+            name: Verbraucht
+          - entity: sensor.epever_xtra3210_pv_max_today
+            name: Max PV
+  - type: entities
+    title: Statistik Gesamt
+    entities:
+      - entity: sensor.epever_xtra3210_generation_total
+        name: Erzeugt gesamt
+      - entity: sensor.epever_xtra3210_consumption_total
+        name: Verbraucht gesamt
+      - entity: sensor.epever_xtra3210_bat_capacity
+        name: Batteriekapazität
+      - entity: sensor.epever_xtra3210_bat_type
+        name: Batterietyp
+  - type: entities
+    title: Temperatur
+    entities:
+      - entity: sensor.epever_xtra3210_bat_temp
+        name: Batterie
+      - entity: sensor.epever_xtra3210_dev_temp
+        name: Gerät
