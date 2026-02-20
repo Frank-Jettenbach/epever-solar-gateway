@@ -68,6 +68,25 @@ sudo systemctl enable epever-web
 sudo systemctl start epever-web
 ```
 
+### 6. MQTT Service für Home Assistant
+
+```bash
+# Einmalig testen
+python mqtt_service.py --once
+
+# Als Daemon (alle 60 Sekunden)
+python mqtt_service.py --daemon
+
+# Mit anderem Interval (z.B. 30 Sekunden)
+python mqtt_service.py --daemon --interval 30
+
+# Als Systemd Service installieren
+sudo cp epever-mqtt.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable epever-mqtt
+sudo systemctl start epever-mqtt
+```
+
 ## Nutzung
 
 ### Web Interface
@@ -176,12 +195,15 @@ Das WiFi-Modul kann bei vielen gleichzeitigen Verbindungen instabil werden. Empf
 ```
 /opt/epever-mqtt-gateway/
 ├── README.md                 # Diese Dokumentation
+├── NOTES.md                  # Entwickler-Notizen
 ├── epever_controller.py      # Hauptmodul für Modbus-Kommunikation
-├── epever-mqtt-gateway.py    # Original MQTT-Skript für Home Assistant
+├── epever-mqtt-gateway.py    # Original MQTT-Skript
+├── mqtt_service.py           # MQTT Service (Daemon-fähig)
 ├── webapp.py                 # Flask Web Application
 ├── templates/
 │   └── index.html            # Web Interface Template
-├── epever-web.service        # Systemd Service Datei
+├── epever-web.service        # Systemd Service (Web)
+├── epever-mqtt.service       # Systemd Service (MQTT)
 ├── epever-apache.conf        # Apache VirtualHost Config
 ├── epever-apache-location.conf # Apache Location Config
 ├── .env.example              # Beispiel-Umgebungsvariablen

@@ -1,0 +1,16 @@
+[Unit]
+Description=EPEVER MQTT Service
+After=network.target
+
+[Service]
+Type=simple
+User=frank
+Group=frank
+WorkingDirectory=/opt/epever-mqtt-gateway
+Environment="PATH=/opt/epever-mqtt-gateway/venv/bin"
+ExecStart=/opt/epever-mqtt-gateway/venv/bin/python /opt/epever-mqtt-gateway/mqtt_service.py --daemon --interval 60
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
